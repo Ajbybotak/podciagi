@@ -1,0 +1,45 @@
+//podciag spojny o maksymalnej sumie
+//maks_suma - maksymalna suma podciagu spojnego
+//maks_pocz - indeks pierwszego elementu podciagu o maksymalnej sumie
+void PSMS(int A[], int &maks_suma, int &maks_pocz)
+{
+    maks_suma = 0;
+    maks_pocz = 0;
+    int akt_suma=0, akt_pocz =0, i;
+    for (i=0; i<N; i++)
+    {
+        if (akt_suma+A[i] > 0)
+        {
+            akt_suma+=A[i];
+            if(akt_suma > maks_suma)
+            {
+                maks_suma=akt_suma;
+                maks_pocz = akt_pocz;
+            }
+        }
+        else
+        {
+            akt_suma=0;
+            akt_pocz=i+1;
+        }
+    }
+}
+
+int main()
+{
+    int suma, pocz, tmp=0, i;
+    int A[N];
+    srand(time(NULL));
+    Losuj(A);
+    Wypisz(A);
+    PSMS(A,suma,pocz);
+    cout<<"Maksymalna suma podciagu spojnego: "<<suma<<endl;
+    cout<<"Podciag spojny o maksymalnej sumie: "<<endl;
+    i=pocz;
+    while (tmp!=suma)
+    {
+        cout<<A[i]<<" ";
+        tmp+=A[i];
+        i++
+    }
+}

@@ -1,0 +1,22 @@
+//maksymalna suma podciagu spojnego
+int MSPS(int A[])
+{
+    int maks_suma=0, akt_suma, i, j, k;
+    for(i=0; i<N; i++)
+    {
+        for(j=i; j<N; j++)
+        {
+            akt_suma=0;
+            for(k=i; k<=j; k++)
+            {
+                akt_suma+=A[k];
+            }
+            
+            if(akt_suma>maks_suma)
+            {
+                maks_suma=akt_suma;
+            }
+        }
+    }
+    return maks_suma;
+}

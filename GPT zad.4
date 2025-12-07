@@ -1,0 +1,72 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <climits>
+
+using namespace std;
+
+void losujTablice(int tablica[], int n) {
+    srand(time(0));
+
+    for (int i = 0; i < n; ++i) {
+        tablica[i] = rand() % 201 - 100;
+    }
+}
+
+void znajdzNajdluzszyPodciag(int tablica[], int n) {
+    int maks_dl = 0, akt_dl = 0, start = -1, koniec = -1;
+    int temp_start = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (tablica[i] > 0) {
+            if (akt_dl == 0) {
+                temp_start = i;
+            }
+            akt_dl++;
+        } else {
+            if (akt_dl > maks_dl) {
+                maks_dl = akt_dl;
+                start = temp_start;
+                koniec = i - 1;
+            }
+            akt_dl = 0;
+        }
+    }
+
+    if (akt_dl > maks_dl) {
+        maks_dl = akt_dl;
+        start = temp_start;
+        koniec = n - 1;
+    }
+
+    if (maks_dl > 0) {
+        cout << "Najdłuższy spójny podciąg liczb dodatnich: ";
+        for (int i = start; i <= koniec; ++i) {
+            cout << tablica[i] << " ";
+        }
+        cout << endl;
+    } else {
+        cout << "Brak liczb dodatnich w ciągu." << endl;
+    }
+}
+
+int main() {
+    int n;
+
+    cout << "Podaj liczbe elementow w ciagu: ";
+    cin >> n;
+
+    int tablica[n];
+
+    losujTablice(tablica, n);
+
+    cout << "Wylosowany ciag liczb: ";
+    for (int i = 0; i < n; ++i) {
+        cout << tablica[i] << " ";
+    }
+    cout << endl;
+
+    znajdzNajdluzszyPodciag(tablica, n);
+
+    return 0;
+}

@@ -1,0 +1,79 @@
+#include <iostream>
+
+using namespace std;
+
+void znajdzNajdluzszePodciagiRosnace(int tablica[], int n) {
+    int maks_dl = 1;
+    int liczbaPodciagow = 0;
+    int podciagi[100][100];
+    int dlugoscPodciagu[100];
+    int aktualnyPodciag[100];
+    int aktualnyIndex = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (i == 0 || tablica[i] > tablica[i - 1]) {
+            aktualnyPodciag[aktualnyIndex++] = tablica[i];
+        } else {
+            if (aktualnyIndex > maks_dl) {
+                maks_dl = aktualnyIndex;
+                liczbaPodciagow = 1;
+                for (int j = 0; j < maks_dl; ++j) {
+                    podciagi[0][j] = aktualnyPodciag[j];
+                }
+                dlugoscPodciagu[0] = maks_dl;
+            } else if (aktualnyIndex == maks_dl) {
+                for (int j = 0; j < maks_dl; ++j) {
+                    podciagi[liczbaPodciagow][j] = aktualnyPodciag[j];
+                }
+                dlugoscPodciagu[liczbaPodciagow] = maks_dl;
+                liczbaPodciagow++;
+            }
+            aktualnyIndex = 1;
+            aktualnyPodciag[0] = tablica[i];
+        }
+    }
+
+    if (aktualnyIndex > maks_dl) {
+        maks_dl = aktualnyIndex;
+        liczbaPodciagow = 1;
+        for (int j = 0; j < maks_dl; ++j) {
+            podciagi[0][j] = aktualnyPodciag[j];
+        }
+        dlugoscPodciagu[0] = maks_dl;
+    } else if (aktualnyIndex == maks_dl) {
+        for (int j = 0; j < maks_dl; ++j) {
+            podciagi[liczbaPodciagow][j] = aktualnyPodciag[j];
+        }
+        dlugoscPodciagu[liczbaPodciagow] = maks_dl;
+        liczbaPodciagow++;
+    }
+
+    if (liczbaPodciagow == 0) {
+        cout << "Brak podciągów rosnących." << endl;
+    } else {
+        for (int i = 0; i < liczbaPodciagow; ++i) {
+            for (int j = 0; j < dlugoscPodciagu[i]; ++j) {
+                cout << podciagi[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+}
+
+int main() {
+    int n;
+
+    cout << "Podaj liczbe elementow w ciagu: ";
+    cin >> n;
+
+    int tablica[n];
+
+    cout << "Podaj elementy ciagu: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> tablica[i];
+    }
+
+    znajdzNajdluzszePodciagiRosnace(tablica, n);
+
+    return 0;
+}

@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void znajdzPodciagiOSumie(int tablica[], int n, int suma) {
+    bool znaleziono = false;
+
+    for (int i = 0; i < n; ++i) {
+        int sum = 0;
+        for (int j = i; j < n; ++j) {
+            sum += tablica[j];
+            if (sum == suma) {
+                cout << "Podciąg o sumie " << suma << ": ";
+                for (int k = i; k <= j; ++k) {
+                    cout << tablica[k] << " ";
+                }
+                cout << endl;
+                znaleziono = true;
+            }
+        }
+    }
+
+    if (!znaleziono) {
+        cout << "Brak podciągów o zadanej sumie." << endl;
+    }
+}
+
+int main() {
+    int n, suma;
+
+    cout << "Podaj liczbe elementow w ciagu: ";
+    cin >> n;
+
+    int tablica[n];
+
+    cout << "Podaj elementy ciagu: ";
+    for (int i = 0; i < n; ++i) {
+        cin >> tablica[i];
+    }
+
+    cout << "Podaj szukaną sumę: ";
+    cin >> suma;
+
+    znajdzPodciagiOSumie(tablica, n, suma);
+
+    return 0;
+}

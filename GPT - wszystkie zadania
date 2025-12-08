@@ -25,3 +25,23 @@ int main() {
 }
 
 //zad 2
+#include <iostream>
+using namespace std;
+
+int main() {
+    int T[] = {1, -2, 3, 4, -1, 2, 1, -5, 4};
+    int n = 9;  // Liczba elementów w tablicy T
+    int maks_dl = T[0];
+    int akt_dlu = T[0];
+
+    for (int i = 1; i < n; ++i) {
+        akt_dlu = max(T[i], akt_dlu + T[i]);
+        maks_dl = max(maks_dl, akt_dlu);
+    }
+
+    cout << "Maksymalna suma podciągu spójnego: " << maks_dl << endl;
+
+    return 0;
+}
+
+//zad 3
